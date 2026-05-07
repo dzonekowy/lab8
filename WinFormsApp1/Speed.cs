@@ -12,6 +12,8 @@ namespace WinFormsApp1
 {
     public partial class Speed : Form
     {
+        int sek = 0;
+
         public Speed()
         {
             InitializeComponent();
@@ -48,6 +50,46 @@ namespace WinFormsApp1
         }
 
         private void Card4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NumOfLeftCards_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Time_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EnemyCard1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EnemyCard2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EnemyCard3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EnemyCard4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EnemyCard5_Click(object sender, EventArgs e)
         {
 
         }
