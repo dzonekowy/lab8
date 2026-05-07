@@ -32,7 +32,7 @@
             button2 = new Button();
             button3 = new Button();
             button4 = new Button();
-            button5 = new Button();
+            blackjack_button = new Button();
             SuspendLayout();
             // 
             // button1
@@ -71,27 +71,29 @@
             button4.Text = "button4";
             button4.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // blackjack_button
             // 
-            button5.Location = new Point(304, 295);
-            button5.Name = "button5";
-            button5.Size = new Size(112, 34);
-            button5.TabIndex = 4;
-            button5.Text = "button5";
-            button5.UseVisualStyleBackColor = true;
+            blackjack_button.Location = new Point(304, 295);
+            blackjack_button.Name = "blackjack_button";
+            blackjack_button.Size = new Size(112, 34);
+            blackjack_button.TabIndex = 4;
+            blackjack_button.Text = "Blackjack";
+            blackjack_button.UseVisualStyleBackColor = true;
+            blackjack_button.Click += blackjack_button_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(button5);
+            Controls.Add(blackjack_button);
             Controls.Add(button4);
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(button1);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             ResumeLayout(false);
         }
 
@@ -101,6 +103,6 @@
         private Button button2;
         private Button button3;
         private Button button4;
-        private Button button5;
+        private Button blackjack_button;
     }
 }

@@ -12,9 +12,11 @@ namespace WinFormsApp1
 {
     public partial class Blackjack : Form
     {
-        public Blackjack()
+        private Form1 okno1;
+        public Blackjack(Form1 form1)
         {
             InitializeComponent();
+            this.okno1 = form1;
         }
     }
 }
