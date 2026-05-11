@@ -76,14 +76,17 @@
             start_button.TabIndex = 2;
             start_button.Text = "Start";
             start_button.UseVisualStyleBackColor = true;
+            start_button.Click += start_button_Click;
             // 
             // zaklad_numeric
             // 
             zaklad_numeric.Location = new Point(727, 645);
             zaklad_numeric.Margin = new Padding(2);
+            zaklad_numeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             zaklad_numeric.Name = "zaklad_numeric";
             zaklad_numeric.Size = new Size(126, 23);
             zaklad_numeric.TabIndex = 4;
+            zaklad_numeric.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // saldo_label
             // 
@@ -104,13 +107,14 @@
             saldo_ilosc.Name = "saldo_ilosc";
             saldo_ilosc.Size = new Size(19, 15);
             saldo_ilosc.TabIndex = 6;
-            saldo_ilosc.Text = "20";
+            saldo_ilosc.Text = "50";
             // 
             // suma_dealer
             // 
             suma_dealer.Location = new Point(460, 173);
             suma_dealer.Margin = new Padding(2);
             suma_dealer.Name = "suma_dealer";
+            suma_dealer.ReadOnly = true;
             suma_dealer.Size = new Size(47, 23);
             suma_dealer.TabIndex = 9;
             // 
@@ -119,6 +123,7 @@
             suma_gracz.Location = new Point(460, 558);
             suma_gracz.Margin = new Padding(2);
             suma_gracz.Name = "suma_gracz";
+            suma_gracz.ReadOnly = true;
             suma_gracz.Size = new Size(47, 23);
             suma_gracz.TabIndex = 10;
             // 
