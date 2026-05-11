@@ -73,7 +73,7 @@
             start_button.Location = new Point(752, 681);
             start_button.Margin = new Padding(2);
             start_button.Name = "start_button";
-            start_button.Size = new Size(78, 23);
+            start_button.Size = new Size(78, 38);
             start_button.TabIndex = 2;
             start_button.Text = "Start";
             start_button.UseVisualStyleBackColor = true;
@@ -158,7 +158,7 @@
             // button_hit
             // 
             button_hit.Enabled = false;
-            button_hit.Location = new Point(111, 740);
+            button_hit.Location = new Point(141, 740);
             button_hit.Name = "button_hit";
             button_hit.Size = new Size(75, 49);
             button_hit.TabIndex = 14;
@@ -169,7 +169,7 @@
             // button_hold
             // 
             button_hold.Enabled = false;
-            button_hold.Location = new Point(192, 740);
+            button_hold.Location = new Point(237, 740);
             button_hold.Name = "button_hold";
             button_hold.Size = new Size(75, 49);
             button_hold.TabIndex = 15;
@@ -199,7 +199,7 @@
             // double_down_button
             // 
             double_down_button.Enabled = false;
-            double_down_button.Location = new Point(273, 740);
+            double_down_button.Location = new Point(329, 740);
             double_down_button.Name = "double_down_button";
             double_down_button.Size = new Size(75, 49);
             double_down_button.TabIndex = 18;

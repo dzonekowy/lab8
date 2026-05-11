@@ -49,7 +49,7 @@ namespace WinFormsApp1
             public void Reset()
             {
                 _cards.Clear();
-                // Automatyczne generowanie 52 kart przy użyciu pętli po enumach
+                //Automatyczne generowanie 52 kart przy użyciu pętli po enumach
                 foreach (Suit s in Enum.GetValues(typeof(Suit)))
                 {
                     foreach (Rank r in Enum.GetValues(typeof(Rank)))
@@ -61,7 +61,7 @@ namespace WinFormsApp1
 
             public void Shuffle()
             {
-                // Algorytm Fisher-Yates - najpopularniejszy sposób tasowania
+                //Algorytm Fisher-Yates
                 int n = _cards.Count;
                 while (n > 1)
                 {
@@ -248,7 +248,7 @@ namespace WinFormsApp1
             button_hit.Enabled = false;
             button_hold.Enabled = false;
             double_down_button.Enabled = false;
-            await Task.Delay(500);
+            await Task.Delay(1000);
             switch (outcome)
             {
                 //przegrana (x0)
@@ -277,7 +277,7 @@ namespace WinFormsApp1
             }
             saldo = saldo + wygrana;
             saldo_ilosc.Text = saldo.ToString();
-            await Task.Delay(500);
+            await Task.Delay(1000);
             if (saldo == 0)
             {
                 Log("Brak środków w saldzie! Aby spróbować ponownie, zrestartuj aplikację.", Color.Red);
@@ -314,19 +314,19 @@ namespace WinFormsApp1
             Log("Dobierasz kartę...", Color.Black);
             UpdateHand(playerhand, reka_gracz);
             UpdateSum(playerhand, suma_gracz);
-            await Task.Delay(500);
+            await Task.Delay(1000);
 
 
             dealerhand.Add((Card)deck.Draw());
             Log("Dealer dobiera kartę...", Color.Black);
             UpdateHand(dealerhand, reka_dealer);
-            await Task.Delay(500);
+            await Task.Delay(1000);
 
             playerhand.Add((Card)deck.Draw());
             Log("Dobierasz kartę...", Color.Black);
             UpdateHand(playerhand, reka_gracz);
             UpdateSum(playerhand, suma_gracz);
-            await Task.Delay(500);
+            await Task.Delay(1000);
 
             dealerhand.Add((Card)deck.Draw());
             Log("Dealer dobiera kartę...", Color.Black);
@@ -337,9 +337,9 @@ namespace WinFormsApp1
             if (handsum(playerhand) == 21)
             {
                 Log("BLACKJACK! Posiadasz 21 w dwóch kartach!", Color.Green);
-                await Task.Delay(500);
+                await Task.Delay(1000);
                 Log("Dealer sprawdza czy ma blackjacka...", Color.Black);
-                await Task.Delay(500);
+                await Task.Delay(1000);
                 if (handsum(dealerhand) == 21)
                 {
                     AlwaysShowFlag = true;
@@ -356,9 +356,6 @@ namespace WinFormsApp1
             }
             else
             {
-
-
-
                 Log("Dealer sprawdza czy ma blackjacka...", Color.Black);
                 await Task.Delay(1000);
                 AlwaysShowFlag = true;
@@ -368,7 +365,7 @@ namespace WinFormsApp1
                     Log("BLACKJACK! Dealer posiada 21 w dwóch kartach!", Color.Red);
                     UpdateHand(dealerhand, reka_dealer);
                     UpdateSum(dealerhand, suma_dealer);
-                    await Task.Delay(500);
+                    await Task.Delay(1000);
                     if (handsum(playerhand) == 21)
                     {
                         Log("Również posiadasz BLACKJACKA, remis!", Color.DarkOrange);
@@ -418,11 +415,11 @@ namespace WinFormsApp1
         {
             Log("Dobierasz kartę...", Color.Black);
             double_down_button.Enabled= false;
-            await Task.Delay(500);
+            await Task.Delay(1000);
             playerhand.Add((Card)deck.Draw());
             UpdateHand(playerhand, reka_gracz);
             UpdateSum(playerhand, suma_gracz);
-            await Task.Delay(500);
+            await Task.Delay(1000);
             bust();
         }
 
@@ -444,14 +441,13 @@ namespace WinFormsApp1
                 while (handsum(dealerhand) < 17)
                 {
                     Log("Suma kart na ręce dealera jest mniejsza od 17. Dealer dobiera kartę...", Color.Black);
-                    await Task.Delay(500);
+                    await Task.Delay(1000);
                     dealerhand.Add((Card)deck.Draw());
                     UpdateHand(dealerhand, reka_dealer);
                     UpdateSum(dealerhand, suma_dealer);
 
                 }
                 Log($"Suma kart na ręce dealera wynosi {handsum(dealerhand)}. Dealer kończy dobieranie.", Color.Black);
-                Log("Dealer posiada 21 lub mniej, przegrana!", Color.Red);
 
                 if (handsum(dealerhand) > 21)
                 {
@@ -476,7 +472,7 @@ namespace WinFormsApp1
             while (handsum(dealerhand) < 17)
             {
                 Log("Suma kart na ręce dealera jest mniejsza od 17. Dealer dobiera kartę...", Color.Black);
-                await Task.Delay(500);
+                await Task.Delay(1000);
                 dealerhand.Add((Card)deck.Draw());
                 UpdateHand(dealerhand, reka_dealer);
                 UpdateSum(dealerhand, suma_dealer);
