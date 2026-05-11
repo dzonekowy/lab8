@@ -199,7 +199,7 @@ namespace WinFormsApp1
             return;
         }
 
-        
+
 
 
 
@@ -219,8 +219,9 @@ namespace WinFormsApp1
             this.okno1 = form1;
             deck.Reset();
             deck.Shuffle();
-            Log("Postaw zakład aby rozpocząć grę.", Color.Black);
-
+            Log("Witaj! Postaw zakład aby rozpocząć grę.", Color.Black);
+            string imie = "Gość"; //Dodać zczytywanie imienia z okna głównego
+            gracz_label.Text = imie;
 
         }
 
@@ -246,6 +247,7 @@ namespace WinFormsApp1
             zaklad_numeric.Enabled = true;
             button_hit.Enabled = false;
             button_hold.Enabled = false;
+            double_down_button.Enabled = false;
             await Task.Delay(500);
             switch (outcome)
             {
@@ -271,16 +273,17 @@ namespace WinFormsApp1
                 case 3:
                     wygrana = zaklad * 2;
                     Log($"Twoja wygrana (x2) = {wygrana}", Color.Green);
-                    break;       
+                    break;
             }
             saldo = saldo + wygrana;
             saldo_ilosc.Text = saldo.ToString();
             await Task.Delay(500);
-            if(saldo == 0)
+            if (saldo == 0)
             {
                 Log("Brak środków w saldzie! Aby spróbować ponownie, zrestartuj aplikację.", Color.Red);
                 start_button.Enabled = false;
-            }else
+            }
+            else
                 Log("Postaw nowy zakład, by rozpocząc kolejną grę.", Color.Black);
 
         }
@@ -296,7 +299,7 @@ namespace WinFormsApp1
             {
                 deck.Reset();
                 deck.Shuffle();
-                Log("Talia się kończy, Dealer bierze nową talię i ją tasuje...", Color.Black);
+                Log("Talia się kończy, Dealer bierze nową talię i ją tasuje...", Color.Blue);
 
             }
             playerhand.Clear();
@@ -377,10 +380,15 @@ namespace WinFormsApp1
                         KoniecGry(0);
                     }
                 }
+                else
+                {
+                    Log("Dealer nie ma blackjacka, twoja tura...", Color.Black);
+                    button_hold.Enabled = true;
+                    button_hit.Enabled = true;
+                    if(saldo >= zaklad)
+                        double_down_button.Enabled = true;
+                }
             }
-            Log("Dealer nie ma blackjacka, twoja tura...", Color.Black);
-            button_hold.Enabled = true;
-            button_hit.Enabled = true;
 
         }
 
@@ -395,7 +403,72 @@ namespace WinFormsApp1
             AlwaysShowFlag = true;
             button_hit.Enabled = false;
             button_hold.Enabled = false;
+            double_down_button.Enabled = false;
             await Task.Delay(1000);
+            pass();
+            
+        }
+
+        private void dealer_label_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void button_hit_Click(object sender, EventArgs e)
+        {
+            Log("Dobierasz kartę...", Color.Black);
+            double_down_button.Enabled= false;
+            await Task.Delay(500);
+            playerhand.Add((Card)deck.Draw());
+            UpdateHand(playerhand, reka_gracz);
+            UpdateSum(playerhand, suma_gracz);
+            await Task.Delay(500);
+            bust();
+        }
+
+
+        public async void bust()
+        {
+            if (handsum(playerhand) > 21)
+            {
+
+                Log("Suma kart jest większa od 21!", Color.Red);
+                AlwaysShowFlag = true;
+                button_hit.Enabled = false;
+                button_hold.Enabled = false;
+                await Task.Delay(1000);
+                Log("Dealer odkrywa karty...", Color.Black);
+                UpdateHand(dealerhand, reka_dealer);
+                UpdateSum(dealerhand, suma_dealer);
+                await Task.Delay(1000);
+                while (handsum(dealerhand) < 17)
+                {
+                    Log("Suma kart na ręce dealera jest mniejsza od 17. Dealer dobiera kartę...", Color.Black);
+                    await Task.Delay(500);
+                    dealerhand.Add((Card)deck.Draw());
+                    UpdateHand(dealerhand, reka_dealer);
+                    UpdateSum(dealerhand, suma_dealer);
+
+                }
+                Log($"Suma kart na ręce dealera wynosi {handsum(dealerhand)}. Dealer kończy dobieranie.", Color.Black);
+                Log("Dealer posiada 21 lub mniej, przegrana!", Color.Red);
+
+                if (handsum(dealerhand) > 21)
+                {
+                    Log("Suma kart na ręce dealera jest większa od 21, remis!", Color.DarkOrange);
+                    KoniecGry(1);
+                }
+                else
+                {
+                    Log("Dealer posiada 21 lub mniej, przegrana!", Color.Red);
+                    KoniecGry(0);
+                }
+
+            }
+        }
+
+        public async void pass()
+        {
             Log("Dealer odkrywa karty...", Color.Black);
             UpdateHand(dealerhand, reka_dealer);
             UpdateSum(dealerhand, suma_dealer);
@@ -434,56 +507,11 @@ namespace WinFormsApp1
             }
         }
 
-        private void dealer_label_Click(object sender, EventArgs e)
-        {
 
-        }
 
-        private async void button_hit_Click(object sender, EventArgs e)
-        {
-            Log("Dobierasz kartę...", Color.Black);
-            await Task.Delay(500);
-            playerhand.Add((Card)deck.Draw());
-            UpdateHand(playerhand, reka_gracz);
-            UpdateSum(playerhand, suma_gracz);
-            await Task.Delay(500);
-            if (handsum(playerhand) > 21)
-            {
 
-                Log("Suma kart jest większa od 21!", Color.Red);
-                AlwaysShowFlag = true;
-                button_hit.Enabled = false;
-                button_hold.Enabled = false;
-                await Task.Delay(1000);
-                Log("Dealer odkrywa karty...", Color.Black);
-                UpdateHand(dealerhand, reka_dealer);
-                UpdateSum(dealerhand, suma_dealer);
-                await Task.Delay(1000);
-                while (handsum(dealerhand) < 17)
-                {
-                    Log("Suma kart na ręce dealera jest mniejsza od 17. Dealer dobiera kartę...", Color.Black);
-                    await Task.Delay(500);
-                    dealerhand.Add((Card)deck.Draw());
-                    UpdateHand(dealerhand, reka_dealer);
-                    UpdateSum(dealerhand, suma_dealer);
 
-                }
-                Log($"Suma kart na ręce dealera wynosi {handsum(dealerhand)}. Dealer kończy dobieranie.", Color.Black);
-                await Task.Delay(1000);
 
-                if (handsum(dealerhand) > 21)
-                {
-                    Log("Suma kart na ręce dealera jest większa od 21, remis!", Color.DarkOrange);
-                    KoniecGry(1);
-                }
-                else
-                {
-                    Log("Dealer posiada 21 lub mniej, przegrana!", Color.Red);
-                    KoniecGry(0);
-                }
-
-            }
-        }
 
         private void saldo_label_Click(object sender, EventArgs e)
         {
@@ -493,7 +521,7 @@ namespace WinFormsApp1
         private void start_button_Click(object sender, EventArgs e)
         {
             zaklad = (int)zaklad_numeric.Value;
-            if(zaklad > saldo)
+            if (zaklad > saldo)
             {
                 zaklad = saldo;
                 zaklad_numeric.Value = (int)saldo;
@@ -501,6 +529,25 @@ namespace WinFormsApp1
             saldo = saldo - zaklad;
             saldo_ilosc.Text = saldo.ToString();
             NowaGra();
+        }
+
+        private async void double_down_button_Click(object sender, EventArgs e)
+        {
+            saldo = saldo - zaklad;
+            zaklad = zaklad * 2;
+            saldo_ilosc.Text = saldo.ToString();
+            zaklad_numeric.Value = (int)zaklad;
+            Log($"Double Down! Dobierasz jedną kartę i podwajasz zakład! ({zaklad})", Color.Purple);
+            await Task.Delay(1000);
+            playerhand.Add((Card)deck.Draw());
+            UpdateHand(playerhand, reka_gracz);
+            UpdateSum(playerhand, suma_gracz);
+            await Task.Delay(1000);
+            if (handsum(playerhand) > 21)
+               bust();
+            else
+               pass();
+
         }
     }
 }
