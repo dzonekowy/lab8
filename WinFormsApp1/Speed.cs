@@ -459,7 +459,7 @@ namespace WinFormsApp1
         {
 
         }
-
+        int tickCounter = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
             sek++;
@@ -468,53 +468,61 @@ namespace WinFormsApp1
 
             bool computerPlayed = false;
 
-            if (cardOnStack1 != null && cardOnStack2 != null && cardOnStack1.Value == cardOnStack2.Value)
-            {
-                // Komputer zauważa równe karty. Dajemy mu 30% szans w każdej sekundzie, że przyklepie je pierwszy
-                if (rnd.Next(1, 101) <= 30)
-                {
-                    TransferTableToReserve(playerReserve); // Jeśli komputer klepnie, to gracz dostaje karę
-                    InfoBar.Text = "PRZECIWNIK BYŁ SZYBSZY! Bierzesz kary.";
-                    InfoBar.Left = (this.ClientSize.Width - InfoBar.Width) / 2;
-                    StartNewRound();
-                    return;
-                }
-            }
+            tickCounter++;
 
-            for (int i = 0; i < HandSize; i++)
+            if(tickCounter>=2)
             {
-                if (enemyHand[i] != null)
+                if (cardOnStack1 != null && cardOnStack2 != null && cardOnStack1.Value == cardOnStack2.Value)
                 {
-                    // Czy pasuje na Stos 1?
-                    if (cardOnStack1 == null || CanPlaceCard(enemyHand[i].Value, cardOnStack1.Value))
+                    // Komputer zauważa równe karty. Dajemy mu 30% szans w każdej sekundzie, że przyklepie je pierwszy
+                    if (rnd.Next(1, 101) <= 30)
                     {
-                        cardOnStack1 = enemyHand[i];
-                        pile1.Add(cardOnStack1);
-                        enemyHand[i] = null; // Komputer wyrzuca kartę
-                        computerPlayed = true;
-                        break; // Przerywamy pętlę, żeby komputer rzucił tylko 1 kartę na sekundę
-                    }
-                    // Jeśli nie, to czy pasuje na Stos 2?
-                    else if (cardOnStack2 == null || CanPlaceCard(enemyHand[i].Value, cardOnStack2.Value))
-                    {
-                        cardOnStack2 = enemyHand[i];
-                        pile2.Add(cardOnStack2);
-                        enemyHand[i] = null;
-                        computerPlayed = true;
-                        break;
+                        TransferTableToReserve(playerReserve); // Jeśli komputer klepnie, to gracz dostaje karę
+                        InfoBar.Text = "PRZECIWNIK BYŁ SZYBSZY! Bierzesz kary.";
+                        InfoBar.Left = (this.ClientSize.Width - InfoBar.Width) / 2;
+                        StartNewRound();
+                        return;
                     }
                 }
-            }
 
-            if (computerPlayed)
-            {
-                FillHands();
-                UpdateUI();
-                CheckWinCondition();
-            }
+                for (int i = 0; i < HandSize; i++)
+                {
+                    if (enemyHand[i] != null)
+                    {
+                        // Czy pasuje na Stos 1?
+                        if (cardOnStack1 == null || CanPlaceCard(enemyHand[i].Value, cardOnStack1.Value))
+                        {
+                            cardOnStack1 = enemyHand[i];
+                            pile1.Add(cardOnStack1);
+                            enemyHand[i] = null; // Komputer wyrzuca kartę
+                            computerPlayed = true;
+                            break; // Przerywamy pętlę, żeby komputer rzucił tylko 1 kartę na sekundę
+                        }
+                        // Jeśli nie, to czy pasuje na Stos 2?
+                        else if (cardOnStack2 == null || CanPlaceCard(enemyHand[i].Value, cardOnStack2.Value))
+                        {
+                            cardOnStack2 = enemyHand[i];
+                            pile2.Add(cardOnStack2);
+                            enemyHand[i] = null;
+                            computerPlayed = true;
+                            break;
+                        }
+                    }
+                }
 
-            // 3. Sprawdzanie, czy oboje graczy utknęło
-            CheckIfStuck();
+                if (computerPlayed)
+                {
+                    FillHands();
+                    UpdateUI();
+                    CheckWinCondition();
+                }
+
+                // 3. Sprawdzanie, czy oboje graczy utknęło
+                CheckIfStuck();
+
+                tickCounter = 0;
+            }
+            
 
 
         }
