@@ -55,7 +55,6 @@
             button1.Text = "FNWH";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
-            button1.Click += button1_Click;
             // 
             // button2
             // 
@@ -69,7 +68,6 @@
             button2.TabIndex = 1;
             button2.Text = "Makao";
             button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
             button2.Click += button2_Click;
             // 
             // button3
