@@ -49,6 +49,7 @@
             EnemyCard5 = new Button();
             EnemLeftCards = new Button();
             NumOfEnemyCards = new Label();
+            Start = new Button();
             SuspendLayout();
             // 
             // Stack1
@@ -246,11 +247,22 @@
             NumOfEnemyCards.Text = "NumOfCards";
             NumOfEnemyCards.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // Start
+            // 
+            Start.Location = new Point(417, 285);
+            Start.Name = "Start";
+            Start.Size = new Size(120, 60);
+            Start.TabIndex = 19;
+            Start.Text = "Start";
+            Start.UseVisualStyleBackColor = true;
+            Start.Click += Start_Click;
+            // 
             // Speed
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(952, 789);
+            Controls.Add(Start);
             Controls.Add(NumOfEnemyCards);
             Controls.Add(EnemLeftCards);
             Controls.Add(EnemyCard5);
@@ -298,5 +310,6 @@
         private Button EnemyCard5;
         private Button EnemLeftCards;
         private Label NumOfEnemyCards;
+        private Button Start;
     }
 }
