@@ -36,10 +36,6 @@
             textbox_nazwa_gracza = new TextBox();
             label_nazwa_gracza = new Label();
             button_tablica = new Button();
-            blackjack_button = new Button();
-            textbox_nazwa_gracza = new TextBox();
-            label_nazwa_gracza = new Label();
-            button_tablica = new Button();
             SuspendLayout();
             // 
             // button1 - MAKAO
@@ -51,7 +47,6 @@
             this.button1.TabIndex = 4;
             this.button1.Text = "MAKAO";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             button1.Location = new Point(213, 39);
             button1.Margin = new Padding(2);
             button1.Name = "button1";
@@ -70,8 +65,9 @@
             button2.Size = new Size(78, 35);
             button2.Size = new Size(78, 35);
             button2.TabIndex = 1;
-            button2.Text = "button2";
+            button2.Text = "Makao";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // button3
             // 
@@ -137,14 +133,6 @@
             button_tablica.Text = "Wyniki";
             button_tablica.UseVisualStyleBackColor = true;
             button_tablica.Click += button_tablica_Click;
-            blackjack_button.Location = new Point(213, 190);
-            blackjack_button.Margin = new Padding(2);
-            blackjack_button.Name = "blackjack_button";
-            blackjack_button.Size = new Size(78, 35);
-            blackjack_button.TabIndex = 4;
-            blackjack_button.Text = "Blackjack";
-            blackjack_button.UseVisualStyleBackColor = true;
-            blackjack_button.Click += blackjack_button_Click;
             // 
             // textbox_nazwa_gracza
             // 
@@ -183,11 +171,6 @@
             Controls.Add(label_nazwa_gracza);
             Controls.Add(textbox_nazwa_gracza);
             Controls.Add(blackjack_button);
-            ClientSize = new Size(532, 430);
-            Controls.Add(button_tablica);
-            Controls.Add(label_nazwa_gracza);
-            Controls.Add(textbox_nazwa_gracza);
-            Controls.Add(blackjack_button);
             Controls.Add(button4);
             Controls.Add(button3);
             Controls.Add(button2);
@@ -209,10 +192,6 @@
         private Button button2;
         private Button button3;
         private Button button4;
-        private Button blackjack_button;
-        private TextBox textbox_nazwa_gracza;
-        private Label label_nazwa_gracza;
-        private Button button_tablica;
         private Button blackjack_button;
         private TextBox textbox_nazwa_gracza;
         private Label label_nazwa_gracza;

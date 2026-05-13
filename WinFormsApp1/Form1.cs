@@ -14,7 +14,7 @@ namespace WinFormsApp1
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
             string nazwa = textbox_nazwa_gracza.Text;
             makao oknoGry = new makao(nazwa);
