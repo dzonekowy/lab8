@@ -219,7 +219,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Image.FromFile(Directory.GetCurrentDirectory().Replace("bin\\Debug\\net8.0-windows", "Resources\\monopolyplansza.png")); ;
+            pictureBox1.Image = Image.FromFile(Directory.GetCurrentDirectory().Replace("bin\\Debug\\net8.0-windows", "Resources\\monopolyplansza.png"));
             pictureBox1.Location = new Point(116, 209);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(737, 735);
@@ -1333,7 +1333,7 @@
             monozwyciezcatext.Name = "monozwyciezcatext";
             monozwyciezcatext.Size = new Size(157, 23);
             monozwyciezcatext.TabIndex = 141;
-            monozwyciezcatext.Text = "PODAJ NAZWE ZWYCIEZCY";
+            monozwyciezcatext.Text = "PODAJ NAZWE GRACZA";
             monozwyciezcatext.Visible = false;
             // 
             // monozapiszbutton
@@ -1342,7 +1342,7 @@
             monozapiszbutton.Name = "monozapiszbutton";
             monozapiszbutton.Size = new Size(224, 118);
             monozapiszbutton.TabIndex = 142;
-            monozapiszbutton.Text = "ZAPISZ WYNIK";
+            monozapiszbutton.Text = "ZAPISZ NAZWE";
             monozapiszbutton.UseVisualStyleBackColor = true;
             monozapiszbutton.Visible = false;
             monozapiszbutton.Click += monozapiszbutton_Click;

@@ -8,7 +8,6 @@ namespace WinFormsApp1
 
 
         public Blackjack blackjack;
-        public Form2 wyniki;
         public Form1()
         {
             InitializeComponent();
@@ -46,7 +45,7 @@ namespace WinFormsApp1
 
         private void button_tablica_Click(object sender, EventArgs e)
         {
-            wyniki = new Form2();
+            Form2 wyniki = new Form2();
             wyniki.Show();
         }
 

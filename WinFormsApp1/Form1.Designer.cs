@@ -154,16 +154,6 @@
             label_nazwa_gracza.TabIndex = 6;
             label_nazwa_gracza.Text = "Nazwa:";
             // 
-            // button_tablica
-            // 
-            button_tablica.Location = new Point(213, 320);
-            button_tablica.Name = "button_tablica";
-            button_tablica.Size = new Size(78, 35);
-            button_tablica.TabIndex = 7;
-            button_tablica.Text = "Wyniki";
-            button_tablica.UseVisualStyleBackColor = true;
-            button_tablica.Click += button_tablica_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);

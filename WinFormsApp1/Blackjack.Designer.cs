@@ -154,6 +154,7 @@
             reka_gracz.Name = "reka_gracz";
             reka_gracz.Size = new Size(321, 314);
             reka_gracz.TabIndex = 13;
+            reka_gracz.Paint += reka_gracz_Paint;
             // 
             // button_hit
             // 
