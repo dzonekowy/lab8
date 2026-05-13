@@ -114,6 +114,7 @@
             button_tablica.TabIndex = 7;
             button_tablica.Text = "Wyniki";
             button_tablica.UseVisualStyleBackColor = true;
+            button_tablica.Click += button_tablica_Click;
             // 
             // Form1
             // 
