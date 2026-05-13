@@ -39,7 +39,7 @@
             // 
             button1.Location = new Point(304, 77);
             button1.Name = "button1";
-            button1.Size = new Size(112, 34);
+            button1.Size = new Size(111, 33);
             button1.TabIndex = 0;
             button1.Text = "button1";
             button1.UseVisualStyleBackColor = true;
@@ -47,9 +47,9 @@
             // 
             // button2
             // 
-            button2.Location = new Point(304, 126);
+            button2.Location = new Point(304, 127);
             button2.Name = "button2";
-            button2.Size = new Size(112, 34);
+            button2.Size = new Size(111, 33);
             button2.TabIndex = 1;
             button2.Text = "button2";
             button2.UseVisualStyleBackColor = true;
@@ -59,7 +59,7 @@
             // 
             button3.Location = new Point(304, 180);
             button3.Name = "button3";
-            button3.Size = new Size(112, 34);
+            button3.Size = new Size(111, 33);
             button3.TabIndex = 2;
             button3.Text = "button3";
             button3.UseVisualStyleBackColor = true;
@@ -69,9 +69,9 @@
             // 
             button4.Location = new Point(304, 237);
             button4.Name = "button4";
-            button4.Size = new Size(112, 34);
+            button4.Size = new Size(111, 33);
             button4.TabIndex = 3;
-            button4.Text = "button4";
+            button4.Text = "Speed";
             button4.UseVisualStyleBackColor = true;
             button4.Click += button4_Click;
             // 
@@ -79,7 +79,7 @@
             // 
             button5.Location = new Point(304, 295);
             button5.Name = "button5";
-            button5.Size = new Size(112, 34);
+            button5.Size = new Size(111, 33);
             button5.TabIndex = 4;
             button5.Text = "button5";
             button5.UseVisualStyleBackColor = true;
@@ -97,6 +97,7 @@
             Controls.Add(button1);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             ResumeLayout(false);
         }
 

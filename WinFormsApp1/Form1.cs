@@ -9,10 +9,11 @@ namespace WinFormsApp1
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Speed speedGameWindow = new Speed();
-            this.Hide();
-            speedGameWindow.ShowDialog(); 
-            this.Show(); 
+            //string nazwa = textbox_nazwa_gracza.Text; to damy jak bedzie merge
+            string nazwa = "Gosia";
+            Speed graSpeed = new Speed(this, nazwa);
+            graSpeed.Show();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -31,6 +32,11 @@ namespace WinFormsApp1
         }
 
         private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
