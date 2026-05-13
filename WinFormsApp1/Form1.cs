@@ -14,6 +14,15 @@ namespace WinFormsApp1
             InitializeComponent();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string nazwa = textbox_nazwa_gracza.Text;
+            makao oknoGry = new makao(nazwa);
+            this.Hide();
+            oknoGry.ShowDialog();
+            this.Show();
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
 
