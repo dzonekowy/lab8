@@ -59,5 +59,10 @@ namespace WinFormsApp1
             InitializeComponent();
             WczytajHistorie();
         }
+
+        private void gridview_wyniki_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

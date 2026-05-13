@@ -219,7 +219,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.monopolyplansza;
+            pictureBox1.Image = Image.FromFile(Directory.GetCurrentDirectory().Replace("bin\\Debug\\net8.0-windows", "Resources\\monopolyplansza.png")); ;
             pictureBox1.Location = new Point(116, 209);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(737, 735);
@@ -1351,7 +1351,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = Properties.Resources.skolim;
+            BackgroundImage = Image.FromFile(Directory.GetCurrentDirectory().Replace("bin\\Debug\\net8.0-windows", "Resources\\skolim.png"));
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1883, 1329);
             Controls.Add(monozapiszbutton);

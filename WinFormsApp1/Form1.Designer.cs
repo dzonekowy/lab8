@@ -80,9 +80,8 @@
             button3.Size = new Size(78, 35);
             button3.Size = new Size(78, 35);
             button3.TabIndex = 2;
-            button3.Text = "button3";
+            button3.Text = "Monopoly";
             button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
             button3.Click += button3_Click;
             // 
             // button4
@@ -97,7 +96,6 @@
             button4.TabIndex = 3;
             button4.Text = "Speed";
             button4.UseVisualStyleBackColor = true;
-            button4.Click += button4_Click;
             button4.Click += button4_Click;
             // 
             // blackjack_button

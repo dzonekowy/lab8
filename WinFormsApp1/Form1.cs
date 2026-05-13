@@ -18,7 +18,7 @@ namespace WinFormsApp1
         private void button1_Click(object sender, EventArgs e)
         {
             this.Hide();
-            FNAPP fnaf = new FNAPP();
+            FNAPP fnaf = new FNAPP(textbox_nazwa_gracza.Text);
             fnaf.Closed += (s, args) => this.Close();
             fnaf.Show();
         }
@@ -52,25 +52,15 @@ namespace WinFormsApp1
 
         private void button4_Click(object sender, EventArgs e)
         {
-            //string nazwa = textbox_nazwa_gracza.Text; to damy jak bedzie merge
-            string nazwa = "Gosia";
+            string nazwa = textbox_nazwa_gracza.Text;
             Speed graSpeed = new Speed(this, nazwa);
             graSpeed.Show();
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
 
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
         }
 
         private void button3_Click(object sender, EventArgs e)

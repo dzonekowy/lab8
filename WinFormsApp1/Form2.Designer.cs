@@ -43,6 +43,7 @@
             gridview_wyniki.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             gridview_wyniki.Size = new Size(643, 332);
             gridview_wyniki.TabIndex = 0;
+            gridview_wyniki.CellContentClick += gridview_wyniki_CellContentClick;
             // 
             // Form2
             // 

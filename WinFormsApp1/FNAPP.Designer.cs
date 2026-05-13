@@ -44,8 +44,6 @@
             label6 = new Label();
             button2 = new Button();
             button6 = new Button();
-            textBox1 = new TextBox();
-            label7 = new Label();
             SuspendLayout();
             // 
             // button1
@@ -231,33 +229,12 @@
             button6.Visible = false;
             button6.Click += button6_Click;
             // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(545, 393);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(270, 23);
-            textBox1.TabIndex = 14;
-            textBox1.Visible = false;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 15F);
-            label7.Location = new Point(545, 362);
-            label7.Name = "label7";
-            label7.Size = new Size(272, 28);
-            label7.TabIndex = 15;
-            label7.Text = "Podpisz się, aby zapisać wynik";
-            label7.Visible = false;
-            // 
             // FNAPP
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(77, 73, 73);
             ClientSize = new Size(1264, 681);
-            Controls.Add(label7);
-            Controls.Add(textBox1);
             Controls.Add(button6);
             Controls.Add(button2);
             Controls.Add(label6);
@@ -299,7 +276,5 @@
         private Label label6;
         private Button button2;
         private Button button6;
-        private TextBox textBox1;
-        private Label label7;
     }
 }

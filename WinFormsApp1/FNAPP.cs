@@ -14,10 +14,12 @@ namespace WinFormsApp1
 {
     public partial class FNAPP : Form
     {
-        public FNAPP()
+        public string gracz;
+        public FNAPP(string nazwa_gracza)
         {
             InitializeComponent();
 
+            gracz = nazwa_gracza;
 
             button1.Left = (this.ClientSize.Width - button1.Width) / 2;
             button1.Top = (this.ClientSize.Height - button1.Height) / 2;
@@ -30,8 +32,6 @@ namespace WinFormsApp1
             label6.Left = (this.ClientSize.Width - label6.Width) / 2;
 
             button6.Left = (this.ClientSize.Width - button6.Width) / 2;
-            label7.Left = (this.ClientSize.Width - label7.Width) / 2;
-            textBox1.Left = (this.ClientSize.Width - textBox1.Width) / 2;
 
         }
 
@@ -212,8 +212,6 @@ namespace WinFormsApp1
             if (gameOver)
             {
                 button6.Visible = true;
-                label7.Visible = true;
-                textBox1.Visible = true;
             }
 
         }
@@ -419,8 +417,6 @@ namespace WinFormsApp1
                 if(night == 4)
                 {
                     button6.Visible = true;
-                    label7.Visible = true;
-                    textBox1.Visible = true;
                 }
 
                 return;
@@ -876,8 +872,6 @@ namespace WinFormsApp1
 
 
             button6.Visible = false;
-            label7.Visible = false;
-            textBox1.Visible = false;
 
             button2.Visible = false;
             label6.Visible = false;
@@ -900,11 +894,7 @@ namespace WinFormsApp1
         private void button6_Click(object sender, EventArgs e)
         {
             string sciezka = "wynik.txt";
-            string nazwagracza = "Anonim";
-            if(textBox1.Text != "")
-            {
-                nazwagracza = textBox1.Text;
-            }
+            string nazwagracza = gracz;
             string winlose = "";
             double roznica = night;
             switch (night)
