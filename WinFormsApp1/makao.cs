@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace WinFormsApp1
 {
@@ -17,10 +18,12 @@ namespace WinFormsApp1
         private bool playerSaidMakao = false;
         private bool isPlayerTurn = true;
         private Random rand = new Random();
+        private string playerName;
 
-        public makao()
+        public makao(string name)
         {
             InitializeComponent();
+            this.playerName = name;
             StartNewGame();
         }
 
@@ -129,6 +132,7 @@ namespace WinFormsApp1
 
                 if (playerHand.Count == 0)
                 {
+                    ZapiszWynik("WYGRANA");
                     MessageBox.Show("MAKAO I PO MAKALE! WYGRAŁEŚ! 🎉", "Zwycięstwo");
                     StartNewGame();
                     return;
@@ -177,6 +181,7 @@ namespace WinFormsApp1
 
             if (computerHand.Count == 0)
             {
+                ZapiszWynik("PRZEGRANA");
                 MessageBox.Show("Komputer wygrał! Spróbuj ponownie.", "Porażka");
                 StartNewGame();
                 return;
@@ -210,6 +215,24 @@ namespace WinFormsApp1
         private void UpdateTableColor(string card)
         {
             lblTable.ForeColor = (card.Contains("♥") || card.Contains("♦")) ? Color.Red : Color.Black;
+        }
+
+        private void ZapiszWynik(string status)
+        {
+            try
+            {
+                string sciezka = "wynik.txt";
+                string data = DateTime.Now.ToString("dd.MM.yyyy");
+                string godzina = DateTime.Now.ToString("HH:mm");
+
+                string linia = $"{playerName},Makao,{status},{playerHand.Count},{data},{godzina}{Environment.NewLine}";
+
+                File.AppendAllText(sciezka, linia);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Błąd zapisu: " + ex.Message);
+            }
         }
     }
 }
