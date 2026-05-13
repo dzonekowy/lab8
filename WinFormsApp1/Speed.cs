@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -103,7 +104,13 @@ namespace WinFormsApp1
             }
 
             NumOfLeftCards.Text = $"Karty gracza: {playerReserve.Count}";
+            NumOfLeftCards.Left = LeftCards.Left + (LeftCards.Width - NumOfLeftCards.Width) / 2;
+            NumOfLeftCards.Top = LeftCards.Top - 25;
+
             NumOfEnemyCards.Text = $"Karty gracza: {enemyReserve.Count}";
+            NumOfEnemyCards.Left = EnemLeftCards.Left + (EnemLeftCards.Width - NumOfEnemyCards.Width) / 2;
+            NumOfEnemyCards.Top = EnemLeftCards.Top + EnemLeftCards.Height + 5;
+
             UpdateUI();
         }
 
@@ -267,6 +274,7 @@ namespace WinFormsApp1
             else
             {
                 InfoBar.Text = "Nie możesz położyć tej karty!";
+                InfoBar.Left = (this.ClientSize.Width - InfoBar.Width) / 2;
             }
         }
 
@@ -365,6 +373,7 @@ namespace WinFormsApp1
             if (!canPlayerMove && !canEnemyMove)
             {
                 InfoBar.Text = "ZABLOKOWANI! Rzucam nowe karty...";
+                InfoBar.Left = (this.ClientSize.Width - InfoBar.Width) / 2;
                 if (playerReserve.Count == 0 && enemyReserve.Count == 0)
                 {
                     RescueDeadlock();
@@ -410,6 +419,7 @@ namespace WinFormsApp1
                 //Przyklepanie 
                 TransferTableToReserve(enemyReserve);
                 InfoBar.Text = "PRZYKLEPANE! Przeciwnik bierze kary";
+                InfoBar.Left = (this.ClientSize.Width - InfoBar.Width) / 2;
                 StartNewRound();
             }
             else
@@ -417,6 +427,7 @@ namespace WinFormsApp1
                 //Przyklepanie błędne
                 TransferTableToReserve(playerReserve);
                 InfoBar.Text = "PUDŁO! Bierzesz karty karne";
+                InfoBar.Left = (this.ClientSize.Width - InfoBar.Width) / 2;
                 StartNewRound();
             }
         }
@@ -453,6 +464,7 @@ namespace WinFormsApp1
         {
             sek++;
             Time.Text = $"Czas: {sek} s";
+            Time.Left = (this.ClientSize.Width - Time.Width) / 2;
 
             bool computerPlayed = false;
 
@@ -463,6 +475,7 @@ namespace WinFormsApp1
                 {
                     TransferTableToReserve(playerReserve); // Jeśli komputer klepnie, to gracz dostaje karę
                     InfoBar.Text = "PRZECIWNIK BYŁ SZYBSZY! Bierzesz kary.";
+                    InfoBar.Left = (this.ClientSize.Width - InfoBar.Width) / 2;
                     StartNewRound();
                     return;
                 }
@@ -508,7 +521,7 @@ namespace WinFormsApp1
 
         private void Time_Click(object sender, EventArgs e)
         {
-
+            Time.Left = (this.ClientSize.Width - Time.Width) / 2;
         }
 
         private void EnemyCard1_Click(object sender, EventArgs e)
