@@ -158,12 +158,12 @@ namespace WinFormsApp1
                 if (hand == dealerhand && hand.Count <= 2 && idx == 0 && AlwaysShowFlag == false)
                 {
                     fileName = "back.png";
-                    filePath = Path.Combine(Application.StartupPath, "Karty", fileName);
+                    filePath = Path.Combine(Application.StartupPath, Directory.GetCurrentDirectory().Replace("bin\\Debug\\net8.0-windows", "Resources\\Karty"), fileName);
                 }
                 else
                 {
                     fileName = $"{card.Suit}_{(int)card.Rank}.png";
-                    filePath = Path.Combine(Application.StartupPath, "Karty", fileName);
+                    filePath = Path.Combine(Application.StartupPath, Directory.GetCurrentDirectory().Replace("bin\\Debug\\net8.0-windows", "Resources\\Karty"), fileName);
                 }
 
                 if (File.Exists(filePath))
@@ -284,7 +284,7 @@ namespace WinFormsApp1
             else
             {
                 Log("Postaw nowy zakład, by rozpocząc kolejną grę.", Color.Black);
-                
+
             }
             ZapiszWynik(wygrana);
 
@@ -294,7 +294,7 @@ namespace WinFormsApp1
         {
             string sciezka = "wynik.txt";
             string nazwagracza = gracz_label.Text;
-            string winlosedraw ="";
+            string winlosedraw = "";
             double roznica = wygrana - zaklad;
             switch (roznica)
             {
@@ -408,7 +408,7 @@ namespace WinFormsApp1
                     Log("Dealer nie ma blackjacka, twoja tura...", Color.Black);
                     button_hold.Enabled = true;
                     button_hit.Enabled = true;
-                    if(saldo >= zaklad)
+                    if (saldo >= zaklad)
                         double_down_button.Enabled = true;
                 }
             }
@@ -429,7 +429,7 @@ namespace WinFormsApp1
             double_down_button.Enabled = false;
             await Task.Delay(1000);
             pass();
-            
+
         }
 
         private void dealer_label_Click(object sender, EventArgs e)
@@ -440,7 +440,7 @@ namespace WinFormsApp1
         private async void button_hit_Click(object sender, EventArgs e)
         {
             Log("Dobierasz kartę...", Color.Black);
-            double_down_button.Enabled= false;
+            double_down_button.Enabled = false;
             await Task.Delay(1000);
             playerhand.Add((Card)deck.Draw());
             UpdateHand(playerhand, reka_gracz);
@@ -566,9 +566,14 @@ namespace WinFormsApp1
             UpdateSum(playerhand, suma_gracz);
             await Task.Delay(1000);
             if (handsum(playerhand) > 21)
-               bust();
+                bust();
             else
-               pass();
+                pass();
+
+        }
+
+        private void reka_gracz_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }
