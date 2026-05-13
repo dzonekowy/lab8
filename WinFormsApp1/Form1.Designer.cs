@@ -52,7 +52,7 @@
             button1.Name = "button1";
             button1.Size = new Size(78, 35);
             button1.TabIndex = 0;
-            button1.Text = "button1";
+            button1.Text = "FNWH";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
