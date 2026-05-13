@@ -80,7 +80,6 @@
             Slap.TabIndex = 2;
             Slap.Text = "Slap";
             Slap.UseVisualStyleBackColor = true;
-            Slap.Visible = false;
             Slap.Click += Slap_Click;
             // 
             // Card1
@@ -131,6 +130,7 @@
             Card5.TabIndex = 7;
             Card5.Text = "Card5";
             Card5.UseVisualStyleBackColor = true;
+            Card5.Click += Card5_Click;
             // 
             // LeftCards
             // 

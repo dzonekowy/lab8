@@ -15,11 +15,14 @@ namespace WinFormsApp1
         private const int HandSize = 5;
         private const int TotalCards = 52;
         int sek = 0;
+        public int FinalTimeSeconds { get; private set; } = 0;
+        public bool PlayerWon { get; private set; } = false;
+
         public enum Suit { Hearts, Diamonds, Clubs, Spades }
         public class Card
         {
             public int Value { get; set; } //2-10, 11(J), 12(Q), 13(K), 14(A)
-            public Suit CardSuit{ get; set; }
+            public Suit CardSuit { get; set; }
             public Image CardImage { get; set; }
             public override string ToString() => $"{Value} {CardSuit}";
         }
@@ -61,15 +64,27 @@ namespace WinFormsApp1
 
         private void DealFirstCardsToCenter()
         {
-            //Wyrzucamy po jednej karcie z rezerw na sam środek
+            // Wypełniamy Stos 1 (Zapożyczamy od przeciwnika, jeśli my nie mamy)
             if (playerReserve.Count > 0)
             {
                 cardOnStack1 = playerReserve.Dequeue();
                 pile1.Add(cardOnStack1);
             }
+            else if (enemyReserve.Count > 0)
+            {
+                cardOnStack1 = enemyReserve.Dequeue();
+                pile1.Add(cardOnStack1);
+            }
+
+            // Wypełniamy Stos 2 (Zapożyczamy od gracza, jeśli komputer nie ma)
             if (enemyReserve.Count > 0)
             {
                 cardOnStack2 = enemyReserve.Dequeue();
+                pile2.Add(cardOnStack2);
+            }
+            else if (playerReserve.Count > 0)
+            {
+                cardOnStack2 = playerReserve.Dequeue();
                 pile2.Add(cardOnStack2);
             }
 
@@ -86,7 +101,7 @@ namespace WinFormsApp1
             UpdateButtonDisplay(Card5, playerHand[4]);
 
             // Aktualizacja przycisków przeciwnika (na razie tylko sprawdzamy czy ma kartę i dajemy "tył")
-            Image backImage = (Image)WinFormsApp1.Properties.Resources.ResourceManager.GetObject("back_dark");
+            Image backImage = (Image)WinFormsApp1.Properties.Resources.ResourceManager.GetObject("back_light");
             UpdateEnemyButtonDisplay(EnemyCard1, enemyHand[0], backImage);
             UpdateEnemyButtonDisplay(EnemyCard2, enemyHand[1], backImage);
             UpdateEnemyButtonDisplay(EnemyCard3, enemyHand[2], backImage);
@@ -197,6 +212,60 @@ namespace WinFormsApp1
 
             return false;
         }
+        private void TryPlayCard(int handIndex)
+        {
+            Card cardToPlay = playerHand[handIndex];
+            if (cardToPlay == null) return;
+
+            bool played = false;
+
+            // Zmiana: Jeśli stos jest pusty (null) LUB karta pasuje
+            if (cardOnStack1 == null || CanPlaceCard(cardToPlay.Value, cardOnStack1.Value))
+            {
+                cardOnStack1 = cardToPlay;
+                pile1.Add(cardToPlay);
+                played = true;
+            }
+            else if (cardOnStack2 == null || CanPlaceCard(cardToPlay.Value, cardOnStack2.Value))
+            {
+                cardOnStack2 = cardToPlay;
+                pile2.Add(cardToPlay);
+                played = true;
+            }
+
+            if (played)
+            {
+                playerHand[handIndex] = null;
+                FillHands();
+                UpdateUI();
+                CheckWinCondition();
+            }
+            else
+            {
+                InfoBar.Text = "Nie możesz położyć tej karty!";
+            }
+        }
+
+        private void CheckWinCondition()
+        {
+            if (playerReserve.Count == 0 && playerHand.All(c => c == null))
+            {
+                timer1.Stop();
+                FinalTimeSeconds = sek; // Zapisujemy czas
+                PlayerWon = true;       // Zapisujemy informację, że wygrał gracz
+                MessageBox.Show($"Wygrałeś! Twój czas to: {sek} sekund.", "Koniec Gry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            else if (enemyReserve.Count == 0 && enemyHand.All(c => c == null))
+            {
+                timer1.Stop();
+                FinalTimeSeconds = sek;
+                PlayerWon = false; // Gracz przegrał (nie zapiszemy mu czasu jako rekordu w Menu)
+                MessageBox.Show("Niestety, komputer wygrał!", "Koniec Gry", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
+        }
+
 
         public Speed()
         {
@@ -215,6 +284,11 @@ namespace WinFormsApp1
 
         private void Slap_Click(object sender, EventArgs e)
         {
+            if (cardOnStack1 == null || cardOnStack2 == null)
+            {
+                return;
+            }
+
             if (cardOnStack1.Value == cardOnStack2.Value)
             {
                 //Przyklepanie 
@@ -227,27 +301,69 @@ namespace WinFormsApp1
                 //Przyklepanie błędne
                 TransferTableToReserve(playerReserve);
                 InfoBar.Text = "PUDŁO! Bierzesz karty karne";
+                StartNewRound();
             }
         }
 
+        private void CheckIfStuck()
+        {
+            // Zabezpieczenie: jeśli stołu nie ma, nie ma sensu sprawdzać
+            if (cardOnStack1 == null || cardOnStack2 == null) return;
+
+            bool canPlayerMove = false;
+            bool canEnemyMove = false;
+
+            // Czy gracz ma jakikolwiek ruch?
+            foreach (var card in playerHand)
+            {
+                if (card != null && (CanPlaceCard(card.Value, cardOnStack1.Value) || CanPlaceCard(card.Value, cardOnStack2.Value)))
+                {
+                    canPlayerMove = true;
+                    break;
+                }
+            }
+
+            // Czy komputer ma jakikolwiek ruch?
+            foreach (var card in enemyHand)
+            {
+                if (card != null && (CanPlaceCard(card.Value, cardOnStack1.Value) || CanPlaceCard(card.Value, cardOnStack2.Value)))
+                {
+                    canEnemyMove = true;
+                    break;
+                }
+            }
+
+            // Jeśli OBAJ gracze utknęli (nikt nie ma ruchu)
+            if (!canPlayerMove && !canEnemyMove)
+            {
+                InfoBar.Text = "ZABLOKOWANI! Rzucam nowe karty...";
+                DealFirstCardsToCenter(); // Rzucamy po jednej karcie z rezerwy na środek
+            }
+        }
+
+
         private void Card1_Click(object sender, EventArgs e)
         {
-
+            TryPlayCard(0);
         }
 
         private void Card2_Click(object sender, EventArgs e)
         {
-
+            TryPlayCard(1);
         }
 
         private void Card3_Click(object sender, EventArgs e)
         {
-
+            TryPlayCard(2);
         }
 
         private void Card4_Click(object sender, EventArgs e)
         {
-
+            TryPlayCard(3);
+        }
+        private void Card5_Click(object sender, EventArgs e)
+        {
+            TryPlayCard(4);
         }
 
         private void NumOfLeftCards_Click(object sender, EventArgs e)
@@ -257,6 +373,58 @@ namespace WinFormsApp1
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            sek++;
+            Time.Text = $"Czas: {sek} s";
+
+            bool computerPlayed = false;
+
+            if (cardOnStack1 != null && cardOnStack2 != null && cardOnStack1.Value == cardOnStack2.Value)
+            {
+                // Komputer zauważa równe karty. Dajemy mu np. 30% szans w każdej sekundzie, że "klepnie" je pierwszy
+                if (rnd.Next(1, 101) <= 30)
+                {
+                    TransferTableToReserve(playerReserve); // Jeśli komputer klepnie, to Ty (Gracz) dostajesz karę!
+                    InfoBar.Text = "KOMPUTER BYŁ SZYBSZY! Bierzesz kary.";
+                    StartNewRound();
+                    return; // Przerywamy tick timera (komputer wykorzystał swój ruch na przyklepanie)
+                }
+            }
+
+            for (int i = 0; i < HandSize; i++)
+            {
+                if (enemyHand[i] != null)
+                {
+                    // Czy pasuje na Stos 1?
+                    if (cardOnStack1 == null || CanPlaceCard(enemyHand[i].Value, cardOnStack1.Value)) 
+                    {
+                        cardOnStack1 = enemyHand[i];
+                        pile1.Add(cardOnStack1);
+                        enemyHand[i] = null; // Komputer wyrzuca kartę
+                        computerPlayed = true;
+                        break; // Przerywamy pętlę, żeby komputer rzucił tylko 1 kartę na sekundę!
+                    }
+                    // Jeśli nie, to czy pasuje na Stos 2?
+                    else if (cardOnStack2 == null || CanPlaceCard(enemyHand[i].Value, cardOnStack2.Value))
+                    {
+                        cardOnStack2 = enemyHand[i];
+                        pile2.Add(cardOnStack2);
+                        enemyHand[i] = null;
+                        computerPlayed = true;
+                        break;
+                    }
+                }
+            }
+
+            if (computerPlayed)
+            {
+                FillHands();
+                UpdateUI();
+                CheckWinCondition();
+            }
+
+            // 3. Sprawdzanie, czy oboje graczy utknęło
+            CheckIfStuck();
+
 
         }
 
@@ -300,5 +468,6 @@ namespace WinFormsApp1
             timer1.Start();
             Start.Visible = false;
         }
+
     }
 }
