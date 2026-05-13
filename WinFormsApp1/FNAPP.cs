@@ -291,7 +291,7 @@ namespace WinFormsApp1
 
         public void timerBatter()
         {
-            System.Timers.Timer timer = new System.Timers.Timer(2000);
+            System.Timers.Timer timer = new System.Timers.Timer(5000);
             timer.Elapsed += (s, e) =>
             {
                 if (wasDoorLeft)
