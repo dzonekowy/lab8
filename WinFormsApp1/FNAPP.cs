@@ -275,8 +275,8 @@ namespace WinFormsApp1
         public bool isSzopCam1 = false;
         public bool isSzopCam2 = false;
 
-        public int hour = 5;
-        public int minute = 55;
+        public int hour = 0;
+        public int minute = 0;
 
         public bool isTimerOn = false;
 
