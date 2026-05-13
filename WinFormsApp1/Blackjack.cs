@@ -211,7 +211,7 @@ namespace WinFormsApp1
         public bool AlwaysShowFlag = false;
 
         private Form1 okno1;
-        public Blackjack(Form1 form1)
+        public Blackjack(Form1 form1, string nazwa)
         {
 
             InitializeComponent();
@@ -220,9 +220,7 @@ namespace WinFormsApp1
             deck.Reset();
             deck.Shuffle();
             Log("Witaj! Postaw zakład aby rozpocząć grę.", Color.Black);
-            string imie = "Gość"; //Dodać zczytywanie imienia z okna głównego
-            gracz_label.Text = imie;
-
+            gracz_label.Text = nazwa;
         }
 
         public double zaklad = 0;
@@ -284,9 +282,37 @@ namespace WinFormsApp1
                 start_button.Enabled = false;
             }
             else
+            {
                 Log("Postaw nowy zakład, by rozpocząc kolejną grę.", Color.Black);
+                
+            }
+            ZapiszWynik(wygrana);
 
         }
+
+        public void ZapiszWynik(double wygrana)
+        {
+            string sciezka = "wynik.txt";
+            string nazwagracza = gracz_label.Text;
+            string winlosedraw ="";
+            double roznica = wygrana - zaklad;
+            switch (roznica)
+            {
+                case > 0:
+                    winlosedraw = "Wygrana";
+                    break;
+                case < 0:
+                    winlosedraw = "Przegrana";
+                    break;
+                case 0:
+                    winlosedraw = "Remis";
+                    break;
+            }
+            //wynik jest wyświetlany jako różnica wygrana - zakład
+            string tresc = $"{nazwagracza},Blackjack,{winlosedraw},{roznica},{DateTime.Now:dd.MM.yyyy},{DateTime.Now:HH:mm}\n";
+            File.AppendAllText(sciezka, tresc);
+        }
+
 
         public async Task NowaGra()
         {
