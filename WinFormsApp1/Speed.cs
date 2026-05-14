@@ -243,6 +243,7 @@ namespace WinFormsApp1
 
             return false;
         }
+
         private void TryPlayCard(int handIndex)
         {
             Card cardToPlay = playerHand[handIndex];
@@ -470,7 +471,7 @@ namespace WinFormsApp1
 
             tickCounter++;
 
-            if(tickCounter>=2)
+            if (tickCounter >= 2)
             {
                 if (cardOnStack1 != null && cardOnStack2 != null && cardOnStack1.Value == cardOnStack2.Value)
                 {
@@ -522,7 +523,7 @@ namespace WinFormsApp1
 
                 tickCounter = 0;
             }
-            
+
 
 
         }
@@ -582,7 +583,55 @@ namespace WinFormsApp1
 
         }
 
-        private void Start_Click(object sender, EventArgs e)
+        private bool canPlaceAll = true;
+
+        private void DropAllCards_Click(object sender, EventArgs e)
+        {
+            if(canPlaceAll==true)
+            {
+                for (int i = 0; i < HandSize; i++)
+                {
+                    if (playerHand[i] != null)
+                    {
+                        if (i%2 == 0)
+                        {
+                            cardOnStack1 = playerHand[i];
+                            pile1.Add(playerHand[i]);
+                        }
+                        else
+                        {
+                            cardOnStack2 = playerHand[i];
+                            pile2.Add(playerHand[i]);
+                        }
+
+                        playerHand[i] = null;
+                    }
+                }
+
+                FillHands();
+
+                UpdateUI();
+
+                InfoBar.Text = "Wyrzuciłeś wszytskie karty z ręki!";
+                InfoBar.Left = (this.ClientSize.Width - InfoBar.Width) / 2;
+
+                canPlaceAll = false;
+
+            }
+            else
+            {
+                InfoBar.Text = "Możesz wyrzucić wszystkie karty tylko raz!";
+                InfoBar.Left = (this.ClientSize.Width - InfoBar.Width) / 2;
+            }
+           
+        }
+
+        private void panel1_Paint_2(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Start_Click_1(object sender, EventArgs e)
         {
             InitializeAndDealDeck();
 

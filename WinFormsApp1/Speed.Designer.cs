@@ -49,6 +49,7 @@
             EnemyCard5 = new Button();
             EnemLeftCards = new Button();
             NumOfEnemyCards = new Label();
+            DropAllCards = new Button();
             panel1 = new Panel();
             Start = new Button();
             panel1.SuspendLayout();
@@ -233,6 +234,16 @@
             NumOfEnemyCards.TextAlign = ContentAlignment.MiddleCenter;
             NumOfEnemyCards.Click += NumOfEnemyCards_Click;
             // 
+            // DropAllCards
+            // 
+            DropAllCards.Location = new Point(662, 456);
+            DropAllCards.Name = "DropAllCards";
+            DropAllCards.Size = new Size(100, 97);
+            DropAllCards.TabIndex = 19;
+            DropAllCards.Text = "Drop All Cards";
+            DropAllCards.UseVisualStyleBackColor = true;
+            DropAllCards.Click += DropAllCards_Click;
+            // 
             // panel1
             // 
             panel1.BackgroundImage = Properties.Resources.back_light;
@@ -241,8 +252,8 @@
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(951, 788);
-            panel1.TabIndex = 21;
-            panel1.Paint += panel1_Paint_1;
+            panel1.TabIndex = 22;
+            panel1.Paint += panel1_Paint_2;
             // 
             // Start
             // 
@@ -252,7 +263,7 @@
             Start.TabIndex = 20;
             Start.Text = "Start";
             Start.UseVisualStyleBackColor = true;
-            Start.Click += Start_Click;
+            Start.Click += Start_Click_1;
             // 
             // Speed
             // 
@@ -260,6 +271,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(951, 788);
             Controls.Add(panel1);
+            Controls.Add(DropAllCards);
             Controls.Add(NumOfEnemyCards);
             Controls.Add(EnemLeftCards);
             Controls.Add(EnemyCard5);
@@ -309,6 +321,7 @@
         private Button EnemyCard5;
         private Button EnemLeftCards;
         private Label NumOfEnemyCards;
+        private Button DropAllCards;
         private Panel panel1;
         private Button Start;
     }
