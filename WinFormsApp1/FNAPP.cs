@@ -683,6 +683,8 @@ namespace WinFormsApp1
             if (batteryLevel > 0)
             {
                 cam1 = true;
+                cam2 = false;
+                cam5 = false;
                 wasCamera1 = true;
                 szop();
                 battery();
@@ -723,6 +725,8 @@ namespace WinFormsApp1
             if (batteryLevel > 0)
             {
                 cam2 = true;
+                cam1 = false;
+                cam5 = false;
                 wasCamera2 = true;
                 hyrax();
                 battery();
@@ -767,6 +771,8 @@ namespace WinFormsApp1
             if (batteryLevel > 0)
             {
                 cam5 = true;
+                cam1 = false;
+                cam2 = false;
                 wasCamera5 = true;
                 back();
                 battery();
