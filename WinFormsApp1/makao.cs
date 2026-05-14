@@ -14,7 +14,6 @@ namespace WinFormsApp1
         private List<string> discardPile = new List<string>();
         private List<string> playerHand = new List<string>();
         private List<string> computerHand = new List<string>();
-
         private bool playerSaidMakao = false;
         private bool isPlayerTurn = true;
         private Random rand = new Random();
@@ -88,7 +87,6 @@ namespace WinFormsApp1
         private void btnDraw_Click(object sender, EventArgs e)
         {
             if (!isPlayerTurn) return;
-
             playerHand.Add(DrawFromDeckLogic());
             playerSaidMakao = false;
             EndPlayerTurn();
@@ -132,7 +130,7 @@ namespace WinFormsApp1
 
                 if (playerHand.Count == 0)
                 {
-                    ZapiszWynik("WYGRANA");
+                    ZapiszWynik("wygrana");
                     MessageBox.Show("MAKAO I PO MAKALE! WYGRAŁEŚ! 🎉", "Zwycięstwo");
                     StartNewGame();
                     return;
@@ -158,7 +156,6 @@ namespace WinFormsApp1
         private async void ComputerTurn()
         {
             await Task.Delay(1500);
-
             string tableCard = lblTable.Text;
             string cardToPlay = computerHand.FirstOrDefault(c => CanPlay(c, tableCard));
 
@@ -168,7 +165,6 @@ namespace WinFormsApp1
                 {
                     MessageBox.Show("Komputer krzyczy: MAKAO!", "AI");
                 }
-
                 discardPile.Add(lblTable.Text);
                 lblTable.Text = cardToPlay;
                 UpdateTableColor(cardToPlay);
@@ -181,7 +177,7 @@ namespace WinFormsApp1
 
             if (computerHand.Count == 0)
             {
-                ZapiszWynik("PRZEGRANA");
+                ZapiszWynik("przegrana");
                 MessageBox.Show("Komputer wygrał! Spróbuj ponownie.", "Porażka");
                 StartNewGame();
                 return;
@@ -205,11 +201,31 @@ namespace WinFormsApp1
             flowHand.Enabled = isPlayerTurn;
             foreach (string card in playerHand)
             {
-                Button cardBtn = new Button { Text = card, Size = new Size(75, 110), BackColor = Color.White, Font = new Font("Arial", 10, FontStyle.Bold), FlatStyle = FlatStyle.Flat };
-                if (card.Contains("♥") || card.Contains("♦")) cardBtn.ForeColor = Color.Red;
+                Button cardBtn = CreateCardButton(card, true);
                 cardBtn.Click += (s, e) => PlayCard(card);
                 flowHand.Controls.Add(cardBtn);
             }
+
+            flowComputerHand.Controls.Clear();
+            foreach (string card in computerHand)
+            {
+                Button cardBtn = CreateCardButton(card, false);
+                flowComputerHand.Controls.Add(cardBtn);
+            }
+        }
+
+        private Button CreateCardButton(string card, bool isPlayer)
+        {
+            Button btn = new Button
+            {
+                Text = card,
+                Size = new Size(65, 90),
+                BackColor = isPlayer ? Color.White : Color.LightGray,
+                Font = new Font("Arial", 9, FontStyle.Bold),
+                FlatStyle = FlatStyle.Flat
+            };
+            if (card.Contains("♥") || card.Contains("♦")) btn.ForeColor = Color.Red;
+            return btn;
         }
 
         private void UpdateTableColor(string card)
@@ -224,9 +240,7 @@ namespace WinFormsApp1
                 string sciezka = "wynik.txt";
                 string data = DateTime.Now.ToString("dd.MM.yyyy");
                 string godzina = DateTime.Now.ToString("HH:mm");
-
                 string linia = $"{playerName},Makao,{status},{playerHand.Count},{data},{godzina}{Environment.NewLine}";
-
                 File.AppendAllText(sciezka, linia);
             }
             catch (Exception ex)
