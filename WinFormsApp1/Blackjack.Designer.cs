@@ -44,6 +44,7 @@
             suma_label2 = new Label();
             log_box = new RichTextBox();
             double_down_button = new Button();
+            button_usun = new Button();
             ((System.ComponentModel.ISupportInitialize)zaklad_numeric).BeginInit();
             SuspendLayout();
             // 
@@ -159,7 +160,7 @@
             // button_hit
             // 
             button_hit.Enabled = false;
-            button_hit.Location = new Point(141, 740);
+            button_hit.Location = new Point(111, 740);
             button_hit.Name = "button_hit";
             button_hit.Size = new Size(75, 49);
             button_hit.TabIndex = 14;
@@ -170,7 +171,7 @@
             // button_hold
             // 
             button_hold.Enabled = false;
-            button_hold.Location = new Point(237, 740);
+            button_hold.Location = new Point(192, 740);
             button_hold.Name = "button_hold";
             button_hold.Size = new Size(75, 49);
             button_hold.TabIndex = 15;
@@ -200,7 +201,7 @@
             // double_down_button
             // 
             double_down_button.Enabled = false;
-            double_down_button.Location = new Point(329, 740);
+            double_down_button.Location = new Point(273, 740);
             double_down_button.Name = "double_down_button";
             double_down_button.Size = new Size(75, 49);
             double_down_button.TabIndex = 18;
@@ -208,11 +209,23 @@
             double_down_button.UseVisualStyleBackColor = true;
             double_down_button.Click += double_down_button_Click;
             // 
+            // button_usun
+            // 
+            button_usun.Enabled = false;
+            button_usun.Location = new Point(354, 740);
+            button_usun.Name = "button_usun";
+            button_usun.Size = new Size(78, 49);
+            button_usun.TabIndex = 19;
+            button_usun.Text = "Usuń Kartę";
+            button_usun.UseVisualStyleBackColor = true;
+            button_usun.Click += button_usun_Click;
+            // 
             // Blackjack
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1010, 839);
+            Controls.Add(button_usun);
             Controls.Add(double_down_button);
             Controls.Add(log_box);
             Controls.Add(suma_label2);
@@ -255,5 +268,6 @@
         private Label suma_label2;
         private RichTextBox log_box;
         private Button double_down_button;
+        private Button button_usun;
     }
 }

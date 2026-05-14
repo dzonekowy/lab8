@@ -245,6 +245,7 @@ namespace WinFormsApp1
             zaklad_numeric.Enabled = true;
             button_hit.Enabled = false;
             button_hold.Enabled = false;
+            button_usun.Enabled = false;
             double_down_button.Enabled = false;
             await Task.Delay(1000);
             switch (outcome)
@@ -319,6 +320,7 @@ namespace WinFormsApp1
             Log($"Rozpoczynam nową grę. Twój zakład = {zaklad}", Color.Blue);
             start_button.Enabled = false;
             zaklad_numeric.Enabled = false;
+            button_usun.Enabled = false;
             AlwaysShowFlag = false;
             //Jeśli talia się kończy, zresetuj talię
             if (deck.cardscount() < 15)
@@ -408,6 +410,7 @@ namespace WinFormsApp1
                     Log("Dealer nie ma blackjacka, twoja tura...", Color.Black);
                     button_hold.Enabled = true;
                     button_hit.Enabled = true;
+                    button_usun.Enabled = true;
                     if (saldo >= zaklad)
                         double_down_button.Enabled = true;
                 }
@@ -446,6 +449,7 @@ namespace WinFormsApp1
             UpdateHand(playerhand, reka_gracz);
             UpdateSum(playerhand, suma_gracz);
             await Task.Delay(1000);
+            button_usun.Enabled = true;
             bust();
         }
 
@@ -530,7 +534,34 @@ namespace WinFormsApp1
         }
 
 
+        public async void UsunKarte()
+        {
+            Random random = new Random();
+            int rng = random.Next(1, 3);
+            int ostatniidx = 0;
+            if (rng == 1)
+            {
+                ostatniidx = playerhand.Count - 1;
+                playerhand.RemoveAt(ostatniidx);
+                Log("Usuwasz ostatnią kartę z ręki!", Color.Green);
+                await Task.Delay(1000);
+                UpdateHand(playerhand, reka_gracz);
+                UpdateSum(playerhand, suma_gracz);
+            }
+            else if (rng == 2)
+            {
+                Log("Zostałeś przyłapany na oszustwie!", Color.Red);
+                await Task.Delay(1000);
+                KoniecGry(0);
+            }
+            if (playerhand.Count == 0)
+            {
+                button_usun.Enabled = false;
+            }
+            await Task.Delay(1000);
+            Log("Twoja tura...", Color.Black);
 
+        }
 
 
 
@@ -574,6 +605,13 @@ namespace WinFormsApp1
 
         private void reka_gracz_Paint(object sender, PaintEventArgs e)
         {
+
+        }
+
+        private void button_usun_Click(object sender, EventArgs e)
+        {
+            double_down_button.Enabled = false;
+            UsunKarte();
 
         }
     }
